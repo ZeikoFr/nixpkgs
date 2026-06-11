@@ -5,8 +5,7 @@
   fetchFromGitHub,
   versionCheckHook,
   nix-update-script,
-}:
-let
+}: let
   version = "1.7.6";
 
   src = fetchFromGitHub {
@@ -41,46 +40,46 @@ let
     '';
   };
 in
-buildGoModule (finalAttrs: {
-  pname = "radar";
-  inherit version src;
+  buildGoModule (finalAttrs: {
+    pname = "radar";
+    inherit version src;
 
-  vendorHash = "sha256-Dg7Dhxt9Yc31RrKNsPRyKZqLXKW++vBjOT8yJT9MhP0=";
+    vendorHash = "sha256-Dg7Dhxt9Yc31RrKNsPRyKZqLXKW++vBjOT8yJT9MhP0=";
 
-  subPackages = [ "cmd/explorer" ];
+    subPackages = ["cmd/explorer"];
 
-  preBuild = ''
-    cp -r ${frontend}/. internal/static/dist/
-  '';
+    preBuild = ''
+      cp -r ${frontend}/. internal/static/dist/
+    '';
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${finalAttrs.version}"
-  ];
+    ldflags = [
+      "-s"
+      "-w"
+      "-X main.version=${finalAttrs.version}"
+    ];
 
-  postInstall = ''
-    mv "$out/bin/explorer" "$out/bin/kubectl-radar"
-  '';
+    postInstall = ''
+      mv "$out/bin/explorer" "$out/bin/kubectl-radar"
+    '';
 
-  versionCheckProgramArg = [ "version" ];
-  nativeInstallCheckInputs = [
-    versionCheckHook
-  ];
-  doInstallCheck = true;
+    versionCheckProgramArg = ["version"];
+    nativeInstallCheckInputs = [
+      versionCheckHook
+    ];
+    doInstallCheck = true;
 
-  passthru = {
-    inherit frontend;
-    updateScript = nix-update-script { };
-  };
+    passthru = {
+      inherit frontend;
+      updateScript = nix-update-script {};
+    };
 
-  meta = {
-    description = "Local-first Kubernetes visibility: topology, event timeline, and service traffic";
-    mainProgram = "kubectl-radar";
-    homepage = "https://github.com/skyhook-io/radar";
-    changelog = "https://github.com/skyhook-io/radar/releases/tag/v${finalAttrs.version}";
-    license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.gaupee ];
-    platforms = lib.platforms.unix;
-  };
-})
+    meta = {
+      description = "Local-first Kubernetes visibility: topology, event timeline, and service traffic";
+      mainProgram = "kubectl-radar";
+      homepage = "https://github.com/skyhook-io/radar";
+      changelog = "https://github.com/skyhook-io/radar/releases/tag/v${finalAttrs.version}";
+      license = lib.licenses.asl20;
+      maintainers = [lib.maintainers.gaupee];
+      platforms = lib.platforms.unix;
+    };
+  })
