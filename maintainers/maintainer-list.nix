@@ -19813,6 +19813,11 @@ List of active NixOS maintainers.
     github = "nigelgbanks";
     githubId = 487373;
   };
+  nikhilmaddirala = {
+    name = "Nikhil Maddirala";
+    github = "nikhilmaddirala";
+    githubId = 4138581;
+  };
   nikitavoloboev = {
     email = "nikita.voloboev@gmail.com";
     github = "nikivdev";
