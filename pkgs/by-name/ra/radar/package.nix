@@ -74,7 +74,7 @@ in
     };
 
     meta = {
-      description = "Local-first Kubernetes visibility: topology, event timeline, and service traffic";
+      description = "local-first Kubernetes visibility: topology, event timeline, and service traffic";
       mainProgram = "kubectl-radar";
       homepage = "https://github.com/skyhook-io/radar";
       changelog = "https://github.com/skyhook-io/radar/releases/tag/v${finalAttrs.version}";
